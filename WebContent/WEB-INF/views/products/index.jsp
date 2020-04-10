@@ -21,7 +21,7 @@
                         <th><c:out value="${products.id}" /></th>
                         <th><c:out value="${products.name}" /></th>
                         <th><c:out value="${products.category}" /></th>
-                        <th><a href="/products/show?id=${products.id}">詳細ページへ</a></th>
+                        <th><a href="<c:url value='/products/show?id=${products.id}' />">詳細ページへ</a></th>
                 </c:forEach>
             </tbody>
         </table>
