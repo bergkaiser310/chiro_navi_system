@@ -52,9 +52,9 @@ public class ProductsCreate extends HttpServlet {
             p.setUpdated_at(currentTime);
 
 
-            //ProductValidator productValidator = new ProductValidator();
+            ProductValidator productValidator = new ProductValidator();
 
-            List<String> errors =ProductValidator.validate(p);
+            List<String> errors =productValidator.validate(p);
             if(errors.size() > 0){
                 em.close();
 

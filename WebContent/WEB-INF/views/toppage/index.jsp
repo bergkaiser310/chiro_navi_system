@@ -4,7 +4,7 @@
 <c:import url="/WEB-INF/layout/app.jsp">
     <c:param name="content">
         <h3>トップページ</h3>
-        <p>ようこそ〇〇さん！今日は<fmt:formatDate value="${today}" pattern="MM/dd" />です！</p><br />
+        <p>ようこそ〇〇さん！今日は<fmt:formatDate value="${today}" pattern="MM/dd" />です！</p>
             <div class="flex">
                 <div class="flexcontent">
                     <h4>今日と明日の予約</h4>

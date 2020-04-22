@@ -8,7 +8,7 @@ import models.Product;
 public class ProductValidator {
 
 
-   public static List<String> validate(Product p){
+   public List<String> validate(Product p){
     List<String> errors = new ArrayList<String>();
 
 
@@ -25,17 +25,26 @@ public class ProductValidator {
     return errors;
    }
 
-    private static String _validateName(String name){
-        if(name == null || name.equals("")){
+    private String _validateName(String name){
+        if(isEmpty(name)){
+        //if(name == null || name.equals("")){
             return "商品名を入力してください。";
         }
         return "" ;
     }
 
-     private static String _validateCategory(String category){
-         if(category == null || category.equals("")){
+     private  String _validateCategory(String category){
+         if(isEmpty(category)){
              return "カテゴリーを選択してください";
          }
          return "";
+     }
+
+
+     public boolean isEmpty(String str){
+         if(str == null || str.equals("")){
+             return true;
+         }
+         return false;
      }
 }
