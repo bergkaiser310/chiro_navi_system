@@ -21,6 +21,10 @@ import javax.persistence.Table;
     @NamedQuery(
             name="getCustomersCount",
             query="SELECT COUNT(c) FROM Customer AS c"
+            ),
+    @NamedQuery(
+            name="getThisBirth" ,
+            query="SELECT c FROM Customer AS c  WHERE c.birthMonth = :thisMonth ORDER BY c.birthDay"
             )
 })
 

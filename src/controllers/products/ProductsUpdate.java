@@ -46,20 +46,27 @@ public class ProductsUpdate extends HttpServlet {
             p.setName(request.getParameter("name"));
             p.setModelCode(request.getParameter("modelCode"));
             p.setCategory(request.getParameter("category"));
-            p.setStock(Integer.parseInt(request.getParameter("stock")));
+
+            String stock = request.getParameter("stock");
+            if(stock != null && stock.equals("")){
+            p.setStock(Integer.parseInt(stock));
+            }else{
+            p.setStock(null);
+            }
+
             p.setContent(request.getParameter("content"));
             p.setUpdated_at(new Timestamp(System.currentTimeMillis()));
 
 
 
-        ProductValidator productValidator = new ProductValidator();
-        List<String> errors = productValidator.validate(p);
+        //ProductValidator productValidator = new ProductValidator();
+        List<String> errors = ProductValidator.validate(p);
 
         if(errors.size()>0){
 
             em.close();
 
-            request.setAttribute("_token",_token);
+            request.setAttribute("_token",request.getSession().getId());
             request.setAttribute("product", p );
             request.setAttribute("errors", errors);
 

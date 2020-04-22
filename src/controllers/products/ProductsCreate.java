@@ -52,13 +52,13 @@ public class ProductsCreate extends HttpServlet {
             p.setUpdated_at(currentTime);
 
 
-            ProductValidator productValidator = new ProductValidator();
+            //ProductValidator productValidator = new ProductValidator();
 
-            List<String> errors = productValidator.validate(p);
+            List<String> errors =ProductValidator.validate(p);
             if(errors.size() > 0){
                 em.close();
 
-                request.setAttribute("_token", _token);
+                request.setAttribute("_token", request.getSession().getId());
                 request.setAttribute("products",p);
                 request.setAttribute("errors",errors);
 

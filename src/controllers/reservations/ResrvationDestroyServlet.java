@@ -1,4 +1,4 @@
-package controllers.products;
+package controllers.reservations;
 
 import java.io.IOException;
 
@@ -9,20 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import models.Product;
+import models.Reservation;
 import utils.DBUtil;
 
 /**
- * Servlet implementation class ProductsDestroy
+ * Servlet implementation class ResrvationDestroyServlet
  */
-@WebServlet("/products/destroy")
-public class ProductsDestroy extends HttpServlet {
+@WebServlet("/resrvation/destroy")
+public class ResrvationDestroyServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductsDestroy() {
+    public ResrvationDestroyServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,19 +31,19 @@ public class ProductsDestroy extends HttpServlet {
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO Auto-generated method stub
+
         EntityManager em = DBUtil.createEntityManager();
 
-        Product p = em.find(Product.class,(Integer)(request.getSession().getAttribute("product_id")));
+        Reservation r = em.find(Reservation.class,(Integer)(request.getSession().getAttribute("reservation_id")));
+
 
         em.getTransaction().begin();
-        em.remove(p);
+        em.remove(r);
         em.getTransaction().commit();
         em.close();
 
         request.getSession().setAttribute("flush", "削除しました。");
-        request.getSession().removeAttribute("product_id");
-        response.sendRedirect(request.getContextPath() + "/products/index");
+        request.getSession().removeAttribute("reservation_id");
+        response.sendRedirect(request.getContextPath() + "/reservation/index");
         }
-
     }

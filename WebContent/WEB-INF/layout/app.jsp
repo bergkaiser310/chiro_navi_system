@@ -16,6 +16,7 @@
                     <h1>顧客管理システム</h1>&nbsp;&nbsp;
                     <a href="<c:url value='/customers/index' />">顧客管理</a>&nbsp;
                     <a href="<c:url value='/products/index' />">商品管理</a>&nbsp;
+                    <a href="<c:url value='/reservation/index' />">予約一覧</a>&nbsp;
                  </div>
             </div>
             <div id="content">

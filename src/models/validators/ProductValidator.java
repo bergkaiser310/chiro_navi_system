@@ -8,13 +8,9 @@ import models.Product;
 public class ProductValidator {
 
 
-   public List<String> validate(Product p){
+   public static List<String> validate(Product p){
     List<String> errors = new ArrayList<String>();
 
-    String modelCode_error = _validateModelCode(p.getModelCode());
-    if(!modelCode_error.equals("")){
-        errors.add(modelCode_error);
-    }
 
     String name_error = _validateName(p.getName());
     if(!name_error.equals("")){
@@ -29,25 +25,17 @@ public class ProductValidator {
     return errors;
    }
 
-   private String _validateModelCode(String modelCode){
-       if(modelCode == null || modelCode.equals("")){
-           return "型番を入力してください。";
-       }
-       return "";
-   }
-
-    private String _validateName(String name){
+    private static String _validateName(String name){
         if(name == null || name.equals("")){
             return "商品名を入力してください。";
         }
         return "" ;
     }
 
-     private String _validateCategory(String category){
+     private static String _validateCategory(String category){
          if(category == null || category.equals("")){
              return "カテゴリーを選択してください";
          }
-         return "" ;
+         return "";
      }
-
 }

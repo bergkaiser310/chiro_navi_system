@@ -20,7 +20,7 @@ import utils.DBUtil;
  * Servlet implementation class CustomersCreate
  */
 @WebServlet("/customers/create")
-public class CustomersCreate extends HttpServlet {
+public class CustomersCreate extends HttpServlet{
     private static final long serialVersionUID = 1L;
 
     /**
@@ -50,8 +50,13 @@ public class CustomersCreate extends HttpServlet {
             c.setTel(request.getParameter("tel"));
             c.setMail(request.getParameter("mail"));
             c.setBirthYear(request.getParameter("birthYear"));
-            c.setBirthMonth(request.getParameter("birthMonth"));
-            c.setBirthDay(request.getParameter("birthDay"));
+
+            String month = String.format("%2s" , request.getParameter("birthMonth")).replace(" ", "0");
+            c.setBirthMonth(month);
+
+            String day = String.format("%2s" , request.getParameter("birthDay")).replace(" ", "0");
+            c.setBirthDay(day);
+
             c.setFamily(request.getParameter("family"));
             c.setIllness(request.getParameter("illness"));
             c.setPurpose(request.getParameter("purpose"));
@@ -62,15 +67,12 @@ public class CustomersCreate extends HttpServlet {
             c.setCreated_at(currentTime);
             c.setUpdated_at(currentTime);
 
-
-            CustomerValidator customerValidator = new CustomerValidator();
-
-            List<String> errors = customerValidator.validate(c);
+            List<String> errors = CustomerValidator.validate(c);
             if(errors.size() > 0){
                 em.close();
 
-                request.setAttribute("_token", _token);
-                request.setAttribute("customers",c);
+                request.setAttribute("_token", request.getSession().getId());
+                request.setAttribute("customer",c);
                 request.setAttribute("errors",errors);
 
                 RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/customers/new.jsp");

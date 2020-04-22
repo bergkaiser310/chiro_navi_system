@@ -43,6 +43,7 @@ public class Product {
 
     @Column(name="stock" , nullable=true)
     private Integer stock ;
+
     @Lob
     @Column (name="content", length = 255,nullable=true)
     private String content ;

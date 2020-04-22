@@ -1,4 +1,4 @@
-package controllers.products;
+package controllers.purchasehistory;
 
 import java.io.IOException;
 
@@ -10,20 +10,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import models.Product;
+import models.PurchaseHistory;
 import utils.DBUtil;
 
 /**
- * Servlet implementation class ProductsEdit
+ * Servlet implementation class PurcaseHistoryshowServlet
  */
-@WebServlet("/products/edit")
-public class ProductsEdit extends HttpServlet {
+@WebServlet("/purcasehistory/show")
+public class PurcaseHistoryshowServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductsEdit() {
+    public PurcaseHistoryshowServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,18 +33,19 @@ public class ProductsEdit extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
-
         EntityManager em = DBUtil.createEntityManager();
 
-        Product p = em.find(Product.class, Integer.parseInt(request.getParameter("id")));
+        PurchaseHistory h  = em.find(PurchaseHistory.class, Integer.parseInt(request.getParameter("id")));
 
         em.close();
 
-        request.setAttribute("_token", request.getSession().getId());
-        request.setAttribute("product", p);
-        request.getSession().setAttribute("product_id", p.getId());
+        request.setAttribute("history", h);
 
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/products/edit.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/purchaseHistory/show.jsp");
         rd.forward(request, response);
     }
- }
+
+
+
+
+}

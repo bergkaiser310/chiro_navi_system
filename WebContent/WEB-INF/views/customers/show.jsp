@@ -3,12 +3,20 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:import url="/WEB-INF/layout/app.jsp">
     <c:param name="content">
+        <c:if test="${flush != null}">
+            <div id="flush_success">
+                <c:out value="${flush}"></c:out>
+            </div>
+        </c:if>
         <c:choose>
             <c:when test="${customer != null}">
                 <h2>顧客情報　詳細ページ</h2>
 
-                <table>
+                <div class="flex">
+                <div class="flexcontent">
+                <table id="customer_show">
                     <tbody>
+                        <h3>顧客情報</h3>
                         <tr>
                             <th>氏名</th>
                             <td><c:out value="${customer.name}" /></td>
@@ -66,7 +74,50 @@
                     </tbody>
                 </table>
 
-                <p><a href="<c:url value='/customers/edit?id=${customer.id}' />">この顧客情報を編集する</a></p>
+
+                    <a href="<c:url value='/customers/edit?id=${customer.id}' />">この顧客情報を編集する</a>
+                </div>
+                <div class="flexcontent">
+                <table id="show">
+                    <tbody>
+                        <h3>購入履歴</h3>
+                        <tr>
+                            <th>購入日</th>
+                            <th>商品名</th>
+                            <th>カテゴリー</th>
+                            <th>操作</th>
+                        </tr>
+
+                        <c:forEach var="myHistory" items="${myHistory}">
+                        <tr>
+                            <td><c:out value="${myHistory.sold_at}" /></td>
+                            <td><c:out value="${myHistory.product.name}" /></td>
+                            <td><c:out value="${myHistory.product.category}" /></td>
+                            <td><button type="button" onclick="location.href='<c:url value="/purchasehistory/edit?id=${myHistory.id}" />'">編集</button></td>
+                        </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+
+                    <p><a href="<c:url value='/purchasehistory/new?id=${customer.id}' /> ">購入情報の登録</a></p>
+
+                <table id="show">
+                    <tbody>
+                        <h3>予約</h3>
+                        <tr>
+                            <th>予約日</th>
+                        </tr>
+                        <c:forEach var="myReservation" items="${myReservation}">
+                        <tr>
+                            <td><c:out value="${myReservation.reserve_at}" /></td>
+                        </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+
+                    <p><a href="<c:url value='/reservation/new?id=${customer.id}' /> ">予約の登録</a></p>
+                </div>
+               </div>
             </c:when>
             <c:otherwise>
                 <h2>お探しのデータは見つかりませんでした。</h2>

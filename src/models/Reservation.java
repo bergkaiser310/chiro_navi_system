@@ -18,7 +18,7 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(
             name="getAllReservations",
-            query="SELECT r FROM Reservation AS r ORDER BY r.id DESC"
+            query="SELECT r FROM Reservation AS r WHERE r.reserve_at >= :today ORDER BY r.reserve_at"
             ),
     @NamedQuery(
             name="getReservationsCount",
@@ -26,7 +26,15 @@ import javax.persistence.Table;
             ),
     @NamedQuery(
             name="getLatestReservation",
-            query="SELECT rs FROM Reservation AS rs WHERE rs.customer = :customer AND rs.reserve_at BETWEEN :fromDate AND :toDate"
+            query="SELECT r FROM Reservation AS r WHERE r.reserve_at BETWEEN :fromDate AND :toDate Order BY r.reserve_at"
+            ),
+    @NamedQuery(
+            name="getMYLatestReservation",
+            query="SELECT r FROM Reservation AS r WHERE r.customer = :customer AND r.reserve_at BETWEEN :fromDate AND :toDate"
+            ),
+    @NamedQuery(
+            name="getMyReservation",
+            query="SELECT r FROM Reservation AS r WHERE r.customer = :customer AND r.reserve_at >= :today"
             ),
 })
 @Entity

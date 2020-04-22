@@ -7,6 +7,9 @@
                 <h2>商品情報　編集ページ</h2>
                 <form method="POST" action="<c:url value='/products/update' />">
                     <c:import url="_form.jsp" />
+                </form><br />
+                <form method="POST" action="<c:url value='/products/destroy' />">
+                    <button type="submit">削除</button>
                 </form>
             </c:when>
             <c:otherwise>

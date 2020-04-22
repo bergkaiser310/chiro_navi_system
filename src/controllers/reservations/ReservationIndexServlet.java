@@ -1,4 +1,4 @@
-package controllers.customers;
+package controllers.reservations;
 
 import java.io.IOException;
 import java.util.Date;
@@ -12,22 +12,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import models.Customer;
-import models.PurchaseHistory;
 import models.Reservation;
 import utils.DBUtil;
 
 /**
- * Servlet implementation class CustomersShow
+ * Servlet implementation class ReservationIndexServlet
  */
-@WebServlet("/customers/show")
-public class CustomersShow extends HttpServlet {
+@WebServlet("/reservation/index")
+public class ReservationIndexServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CustomersShow() {
+    public ReservationIndexServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,35 +37,33 @@ public class CustomersShow extends HttpServlet {
         // TODO Auto-generated method stub
         EntityManager em = DBUtil.createEntityManager();
 
-        Customer c  = em.find(Customer.class, Integer.parseInt(request.getParameter("id")));
+        int page = 1 ;
+        try{
+            page = Integer.parseInt(request.getParameter("page"));
+        }catch(NumberFormatException e){
 
-        Date today = new Date();
-
-        List<Reservation> myReservation = em.createNamedQuery("getMyReservation", Reservation.class)
-                                        .setParameter("customer",c)
-                                        .setParameter("today", today)
+        Date date = new Date();
+        List<Reservation> reservation = em.createNamedQuery("getAllReservations", Reservation.class)
+                                        .setFirstResult((page-1)*15)
+                                        .setMaxResults(15)
+                                        .setParameter("today",date)
                                         .getResultList();
 
-        List<PurchaseHistory> myHistory = em.createNamedQuery("getMyPurchaseHistory", PurchaseHistory.class)
-                .setParameter("customer",c)
-                .getResultList();
-
+        Long r_count = em.createNamedQuery("getReservationsCount" , Long.class)
+                            .getSingleResult();
         em.close();
 
-
-        request.setAttribute("customer", c);
-        request.setAttribute("myReservation", myReservation);
-        request.setAttribute("myHistory", myHistory);
+        request.setAttribute("page" , page);
+        request.setAttribute("reservations", reservation);
+        request.setAttribute("r_count", r_count);
 
         if(request.getSession().getAttribute("flush") != null) {
             request.setAttribute("flush", request.getSession().getAttribute("flush"));
             request.getSession().removeAttribute("flush");
         }
-
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/customers/show.jsp");
-        rd.forward(request, response);
+        }
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/reservation/index.jsp");
+        rd.forward(request,response);
     }
 
-
-
-    }
+}

@@ -7,7 +7,7 @@
                 <c:out value="${flush}"></c:out>
             </div>
         </c:if>
-        <h2>顧客一覧</h2>
+        <h2>顧客　一覧</h2>
         <table id="customer_list">
             <tbody>
             <tr>
@@ -25,7 +25,7 @@
                     <td><c:out value="${customers.adress}" /></td>
                     <td><c:out value="${customers.tel}" /></td>
                     <td><a href="<c:url value='/customers/show?id=${customers.id}' />">詳細ページへ</a></td>
-                    <td><a href="<c:url value='' />">予約登録</a></td>
+                    <td><a href="<c:url value='/reservation/new?id=${customers.id }' />">予約登録</a></td>
                 </tr>
             </c:forEach>
             </tbody>

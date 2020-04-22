@@ -19,12 +19,20 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(
             name="getAllPurchaseHsitory",
-            query="SELECT h FROM PurchaseHistory AS h ORDER BY h.id DESC"
+            query="SELECT h FROM PurchaseHistory AS h ORDER BY h.sold_at DESC"
             ),
     @NamedQuery(
             name="getPurchaseHistoryCount",
             query="SELECT COUNT(h) FROM PurchaseHistory AS h"
-            )
+            ),
+    @NamedQuery(
+            name="getMyPurchaseHistory",
+            query="SELECT h FROM PurchaseHistory AS h WHERE h.customer = :customer "
+            ),
+    @NamedQuery(
+            name="getProductsHistory",
+            query="SELECT h FROM PurchaseHistory AS h WHERE h.product = :product "
+            ),
 })
 
 

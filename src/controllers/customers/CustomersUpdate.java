@@ -49,26 +49,26 @@ public class CustomersUpdate extends HttpServlet {
             c.setTel(request.getParameter("tel"));
             c.setMail(request.getParameter("mail"));
             c.setBirthYear(request.getParameter("birthYear"));
-            c.setBirthMonth(request.getParameter("birthMonth"));
-            c.setBirthDay(request.getParameter("birthDay"));
+
+            String month = String.format("%2s" , request.getParameter("birthMonth")).replace(" ", "0");
+            c.setBirthMonth(month);
+
+            String day = String.format("%2s" , request.getParameter("birthDay")).replace(" ", "0");
+            c.setBirthDay(day);
+
             c.setFamily(request.getParameter("family"));
             c.setIllness(request.getParameter("illness"));
             c.setPurpose(request.getParameter("purpose"));
             c.setIntroduce(request.getParameter("introduce"));
             c.setContent(request.getParameter("content"));
-
-
             c.setUpdated_at(new Timestamp(System.currentTimeMillis()));
 
-
-            CustomerValidator customerValidator = new CustomerValidator();
-
-            List<String> errors = customerValidator.validate(c);
+            List<String> errors = CustomerValidator.validate(c);
             if(errors.size() > 0){
                 em.close();
 
-                request.setAttribute("_token", _token);
-                request.setAttribute("customers",c);
+                request.setAttribute("_token", request.getSession().getId());
+                request.setAttribute("customer",c);
                 request.setAttribute("errors",errors);
 
                 RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/customers/edit.jsp");
@@ -76,20 +76,12 @@ public class CustomersUpdate extends HttpServlet {
 
             }else{
 
-
                 em.getTransaction().begin();
                 em.getTransaction().commit();
                 em.close();
                 request.getSession().setAttribute("flush", "更新が完了しました。");
                 response.sendRedirect(request.getContextPath() + "/customers/index");
             }
-
-
     }
-
-
-
-
-    }
-
+   }
 }
