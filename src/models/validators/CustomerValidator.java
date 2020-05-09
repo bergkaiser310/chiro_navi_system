@@ -3,11 +3,19 @@ package models.validators;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletContext;
+
 import models.Customer;
 
 
 public class CustomerValidator{
 
+    private ServletContext context;
+
+    public CustomerValidator(ServletContext context) {
+         super();
+         this.context = context;
+     }
 
         public List<String> validate(Customer c){
             List<String> errors = new ArrayList<String>();
@@ -62,63 +70,63 @@ public class CustomerValidator{
 
         private String _validateName(String name){
             if(isEmpty(name)){
-               return  "氏名を入力してください";
+               return  (String)context.getAttribute("Error0002");
             }
             return "";
         }
 
         private String _validateAdress(String adress){
             if(isEmpty(adress)){
-              return  "住所を入力してください。";
+              return  (String)context.getAttribute("Error0003");
             }
             return "";
         }
 
         private String _validateTel(String tel){
             if(isEmpty(tel)){
-              return  "電話番号を入力してください。";
+              return  (String)context.getAttribute("Error0004");
             }
             return "";
         }
 
         private String _validateBirthYear(String birthYear){
             if(isEmpty(birthYear)){
-              return  "生年月日（年）を選択してください。";
+              return  (String)context.getAttribute("Error0005");
             }
             return "";
         }
 
         private String _validateBirthMonth(String birthMonth){
             if(isEmpty(birthMonth)){
-              return  "生年月日（月）を選択してください。";
+              return  (String)context.getAttribute("Error0005");
             }
             return "";
         }
 
         private String _validateBirthDay(String birthDay){
             if(isEmpty(birthDay)){
-              return  "生年月日（日）を選択してください。";
+              return  (String)context.getAttribute("Error0005");
             }
             return "";
         }
 
         private String _validateFamily(String family){
             if(isEmpty(family)){
-              return  "家族構成を選択してください。";
+              return  (String)context.getAttribute("Error0006");
             }
             return "";
         }
 
         private String _validateIllness(String illness){
             if(isEmpty(illness)){
-              return  "持病を入力してください。";
+              return  (String)context.getAttribute("Error0007");
             }
             return "";
         }
 
         private  String _validatePurpose(String purpose){
             if(isEmpty(purpose)){
-              return  "受診の目的を入力してください。";
+              return  (String)context.getAttribute("Error0008");
             }
 
 

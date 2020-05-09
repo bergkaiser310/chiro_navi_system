@@ -63,7 +63,7 @@ public class CustomersUpdate extends HttpServlet {
             c.setContent(request.getParameter("content"));
             c.setUpdated_at(new Timestamp(System.currentTimeMillis()));
 
-            CustomerValidator customerValidator = new CustomerValidator();
+            CustomerValidator customerValidator = new CustomerValidator(this.getServletContext());
             List<String> errors = customerValidator.validate(c);
             if(errors.size() > 0){
                 em.close();

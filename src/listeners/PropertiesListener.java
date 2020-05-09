@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Iterator;
 import java.util.Properties;
 
@@ -43,8 +44,10 @@ public class PropertiesListener implements ServletContextListener {
         String path = context.getRealPath("/META-INF/errormessage.properties");
         try {
             InputStream is = new FileInputStream(path);
+            InputStreamReader isr = new InputStreamReader(is, "UTF-8");
             Properties properties = new Properties();
-            properties.load(is);
+            properties.load(isr);
+            isr.close();
             is.close();
 
             Iterator<String> pit = properties.stringPropertyNames().iterator();

@@ -67,7 +67,7 @@ public class CustomersCreate extends HttpServlet{
             c.setCreated_at(currentTime);
             c.setUpdated_at(currentTime);
 
-            CustomerValidator customerValidator = new CustomerValidator();
+            CustomerValidator customerValidator = new CustomerValidator(this.getServletContext());
             List<String> errors = customerValidator.validate(c);
             if(errors.size() > 0){
                 em.close();

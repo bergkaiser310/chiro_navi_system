@@ -59,7 +59,7 @@ public class ProductsUpdate extends HttpServlet {
 
 
 
-        ProductValidator productValidator = new ProductValidator();
+        ProductValidator productValidator = new ProductValidator(this.getServletContext());
         List<String> errors = productValidator.validate(p);
 
         if(errors.size()>0){

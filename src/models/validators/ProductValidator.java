@@ -3,12 +3,20 @@ package models.validators;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletContext;
+
 import models.Product;
 
-public class ProductValidator {
+public class ProductValidator{
 
+    private ServletContext context;
 
-   public List<String> validate(Product p){
+   public ProductValidator(ServletContext context) {
+        super();
+        this.context = context;
+    }
+
+public List<String> validate(Product p){
     List<String> errors = new ArrayList<String>();
 
 
@@ -20,22 +28,23 @@ public class ProductValidator {
     String category_error = _validateCategory(p.getCategory());
     if(!category_error.equals("")){
         errors.add(category_error);
+
     }
 
-    return errors;
+return errors;
+
    }
 
     private String _validateName(String name){
         if(isEmpty(name)){
-        //if(name == null || name.equals("")){
-            return "商品名を入力してください。";
+          return (String)context.getAttribute("Error0010");
         }
         return "" ;
     }
 
      private  String _validateCategory(String category){
          if(isEmpty(category)){
-             return "カテゴリーを選択してください";
+             return (String)context.getAttribute("Error0011");
          }
          return "";
      }
