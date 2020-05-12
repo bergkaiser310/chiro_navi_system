@@ -73,6 +73,9 @@
                             </tbody>
                         </table>
                         <a href="<c:url value='/customers/edit?id=${customer.id}' />">この顧客情報を編集する</a>
+                        <form method="POST" action="<c:url value='/customers/destroy' />">
+                            <button type="button" onclick="confirmDestroy();">削除</button>
+                        </form>
                     </div>
                     <div class="flexcontent">
                         <h3>購入履歴</h3>
