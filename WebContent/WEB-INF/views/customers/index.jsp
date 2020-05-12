@@ -11,7 +11,7 @@
         <table id="customer_list">
             <tbody>
             <tr>
-                <th>id</th>
+               <!-- <th>id</th> -->
                 <th>氏名</th>
                 <th>住所</th>
                 <th>電話番号</th>
@@ -20,7 +20,7 @@
             </tr>
             <c:forEach var="customers" items="${customers}" varStatus="status">
                 <tr class="row${status.count % 2}">
-                    <td><c:out value="${customers.id}" /></td>
+                   <!--  <td><c:out value="${customers.id}" /></td> -->
                     <td><c:out value="${customers.name}" /></td>
                     <td><c:out value="${customers.adress}" /></td>
                     <td><c:out value="${customers.tel}" /></td>

@@ -37,10 +37,12 @@ public class CustomersIndex extends HttpServlet {
         EntityManager em = DBUtil.createEntityManager();
 
         int page = 1;
-
-        try{
+        try {
             page = Integer.parseInt(request.getParameter("page"));
-        }catch(NumberFormatException e){
+        } catch(NumberFormatException e) {
+            System.out.println("ページには数字を入力してください");
+        }
+
             List<Customer> customers = em.createNamedQuery("getAllCustomers",Customer.class)
                                         .setFirstResult(15*(page-1))
                                         .setMaxResults(15)
@@ -48,7 +50,6 @@ public class CustomersIndex extends HttpServlet {
 
             Long customers_count = (long)em.createNamedQuery("getCustomersCount",Long.class)
                                     .getSingleResult();
-
 
             em.close();
 
@@ -64,8 +65,7 @@ public class CustomersIndex extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/customers/index.jsp");
             rd.forward(request,response);
 
+
+
         }
-
     }
-
-}
