@@ -40,26 +40,26 @@ public class ProductsCreate extends HttpServlet {
 
             EntityManager em = DBUtil.createEntityManager();
 
-            Product p = new Product();
+            Product product = new Product();
 
-            p.setName(request.getParameter("name"));
-            p.setModelCode(request.getParameter("modelCode"));
-            p.setCategory(request.getParameter("category"));
-            p.setStock(Integer.parseInt(request.getParameter("stock")));
+            product.setName(request.getParameter("name"));
+            product.setModelCode(request.getParameter("modelCode"));
+            product.setCategory(request.getParameter("category"));
+            product.setStock(Integer.parseInt(request.getParameter("stock")));
 
             Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-            p.setCreated_at(currentTime);
-            p.setUpdated_at(currentTime);
+            product.setCreated_at(currentTime);
+            product.setUpdated_at(currentTime);
 
 
             ProductValidator productValidator = new ProductValidator(this.getServletContext());
 
-            List<String> errors =productValidator.validate(p);
+            List<String> errors =productValidator.validate(product);
             if(errors.size() > 0){
                 em.close();
 
                 request.setAttribute("_token", request.getSession().getId());
-                request.setAttribute("products",p);
+                request.setAttribute("products",product);
                 request.setAttribute("errors",errors);
 
                 RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/products/new.jsp");
@@ -69,7 +69,7 @@ public class ProductsCreate extends HttpServlet {
 
 
                 em.getTransaction().begin();
-                em.persist(p);
+                em.persist(product);
                 em.getTransaction().commit();
                 em.close();
                 request.getSession().setAttribute("flush", "登録が完了しました。");

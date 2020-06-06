@@ -36,13 +36,13 @@ public class ProductsEdit extends HttpServlet {
 
         EntityManager em = DBUtil.createEntityManager();
 
-        Product p = em.find(Product.class, Integer.parseInt(request.getParameter("id")));
+        Product product = em.find(Product.class, Integer.parseInt(request.getParameter("id")));
 
         em.close();
 
         request.setAttribute("_token", request.getSession().getId());
-        request.setAttribute("product", p);
-        request.getSession().setAttribute("product_id", p.getId());
+        request.setAttribute("product", product);
+        request.getSession().setAttribute("product_id", product.getId());
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/products/edit.jsp");
         rd.forward(request, response);

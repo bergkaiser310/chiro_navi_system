@@ -41,7 +41,7 @@ public class ProductsIndex extends HttpServlet {
 
         try{
             page = Integer.parseInt(request.getParameter("page"));
-        }catch(NumberFormatException e){
+        }catch(NumberFormatException e){}
             List<Product> products = em.createNamedQuery("getAllProducts",Product.class)
                                 .setFirstResult(15 * (page - 1))
                                 .setMaxResults(15)
@@ -67,4 +67,3 @@ public class ProductsIndex extends HttpServlet {
 
         }
     }
-}

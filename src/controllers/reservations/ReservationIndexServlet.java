@@ -40,7 +40,7 @@ public class ReservationIndexServlet extends HttpServlet {
         int page = 1 ;
         try{
             page = Integer.parseInt(request.getParameter("page"));
-        }catch(NumberFormatException e){
+        }catch(NumberFormatException e){}
 
         Date date = new Date();
         List<Reservation> reservation = em.createNamedQuery("getAllReservations", Reservation.class)
@@ -50,7 +50,8 @@ public class ReservationIndexServlet extends HttpServlet {
                                         .getResultList();
 
         Long r_count = em.createNamedQuery("getReservationsCount" , Long.class)
-                            .getSingleResult();
+                        .setParameter("today",date)
+                        .getSingleResult();
         em.close();
 
         request.setAttribute("page" , page);
@@ -61,9 +62,9 @@ public class ReservationIndexServlet extends HttpServlet {
             request.setAttribute("flush", request.getSession().getAttribute("flush"));
             request.getSession().removeAttribute("flush");
         }
-        }
+
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/reservation/index.jsp");
         rd.forward(request,response);
     }
-
 }
+

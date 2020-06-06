@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(
             name="getAllCustomers",
-            query="SELECT c FROM Customer AS c ORDER BY c.id DESC"
+            query="SELECT c FROM Customer AS c ORDER BY c.id"
             ),
     @NamedQuery(
             name="getCustomersCount",

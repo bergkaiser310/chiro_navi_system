@@ -22,7 +22,7 @@ import javax.persistence.Table;
             ),
     @NamedQuery(
             name="getReservationsCount",
-            query="SELECT COUNT(r) FROM Reservation AS r"
+            query="SELECT COUNT(r) FROM Reservation AS r WHERE r.reserve_at >= :today"
             ),
     @NamedQuery(
             name="getLatestReservation",

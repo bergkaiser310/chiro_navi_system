@@ -34,10 +34,10 @@ public class ProductsDestroy extends HttpServlet {
         // TODO Auto-generated method stub
         EntityManager em = DBUtil.createEntityManager();
 
-        Product p = em.find(Product.class,(Integer)(request.getSession().getAttribute("product_id")));
+        Product product = em.find(Product.class,(Integer)(request.getSession().getAttribute("product_id")));
 
         em.getTransaction().begin();
-        em.remove(p);
+        em.remove(product);
         em.getTransaction().commit();
         em.close();
 
