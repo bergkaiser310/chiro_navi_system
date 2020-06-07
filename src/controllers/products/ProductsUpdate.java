@@ -41,33 +41,33 @@ public class ProductsUpdate extends HttpServlet {
 
             EntityManager em = DBUtil.createEntityManager();
 
-            Product p = em.find(Product.class, (Integer)request.getSession().getAttribute("product_id"));
+            Product product = em.find(Product.class, (Integer)request.getSession().getAttribute("product_id"));
 
-            p.setName(request.getParameter("name"));
-            p.setModelCode(request.getParameter("modelCode"));
-            p.setCategory(request.getParameter("category"));
+            product.setName(request.getParameter("name"));
+            product.setModelCode(request.getParameter("modelCode"));
+            product.setCategory(request.getParameter("category"));
 
             String stock = request.getParameter("stock");
             if(stock != null && stock.equals("")){
-            p.setStock(Integer.parseInt(stock));
+            product.setStock(Integer.parseInt(stock));
             }else{
-            p.setStock(null);
+            product.setStock(null);
             }
 
-            p.setContent(request.getParameter("content"));
-            p.setUpdated_at(new Timestamp(System.currentTimeMillis()));
+            product.setContent(request.getParameter("content"));
+            product.setUpdated_at(new Timestamp(System.currentTimeMillis()));
 
 
 
         ProductValidator productValidator = new ProductValidator(this.getServletContext());
-        List<String> errors = productValidator.validate(p);
+        List<String> errors = productValidator.validate(product);
 
         if(errors.size()>0){
 
             em.close();
 
             request.setAttribute("_token",request.getSession().getId());
-            request.setAttribute("product", p );
+            request.setAttribute("product", product);
             request.setAttribute("errors", errors);
 
             RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/products/edit.jsp");

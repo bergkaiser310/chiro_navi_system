@@ -34,11 +34,11 @@ public class ProductsShow extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         EntityManager em = DBUtil.createEntityManager();
 
-        Product p  = em.find(Product.class, Integer.parseInt(request.getParameter("id")));
+        Product product  = em.find(Product.class, Integer.parseInt(request.getParameter("id")));
 
         em.close();
 
-        request.setAttribute("product", p);
+        request.setAttribute("product", product);
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/products/show.jsp");
         rd.forward(request, response);
