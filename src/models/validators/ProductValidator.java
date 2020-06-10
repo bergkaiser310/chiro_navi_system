@@ -19,39 +19,21 @@ public class ProductValidator{
 public List<String> validate(Product p){
     List<String> errors = new ArrayList<String>();
 
-
-    String name_error = _validateName(p.getName());
-    if(!name_error.equals("")){
-        errors.add(name_error);
+    if(isEmpty(p.getName())){
+        errors.add((String)context.getAttribute("Error0010"));
     }
 
-    String category_error = _validateCategory(p.getCategory());
-    if(!category_error.equals("")){
-        errors.add(category_error);
-
+    if(isEmpty(p.getCategory())){
+        errors.add((String)context.getAttribute("Error0011"));
     }
 
 return errors;
 
    }
 
-    private String _validateName(String name){
-        if(isEmpty(name)){
-          return (String)context.getAttribute("Error0010");
-        }
-        return "" ;
-    }
 
-     private  String _validateCategory(String category){
-         if(isEmpty(category)){
-             return (String)context.getAttribute("Error0011");
-         }
-         return "";
-     }
-
-
-     public boolean isEmpty(String str){
-         if(str == null || str.equals("")){
+     public boolean isEmpty(String product_item){
+         if(product_item == null || product_item.equals("")){
              return true;
          }
          return false;

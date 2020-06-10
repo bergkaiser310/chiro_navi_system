@@ -42,38 +42,38 @@ public class CustomersCreate extends HttpServlet{
 
             EntityManager em = DBUtil.createEntityManager();
 
-            Customer c = new Customer();
+            Customer customer = new Customer();
 
-            c.setName(request.getParameter("name"));
-            c.setPostalCode(request.getParameter("postalCode"));
-            c.setAdress(request.getParameter("adress"));
-            c.setTel(request.getParameter("tel"));
-            c.setMail(request.getParameter("mail"));
-            c.setBirthYear(request.getParameter("birthYear"));
+            customer.setName(request.getParameter("name"));
+            customer.setPostalCode(request.getParameter("postalCode"));
+            customer.setAdress(request.getParameter("adress"));
+            customer.setTel(request.getParameter("tel"));
+            customer.setMail(request.getParameter("mail"));
+            customer.setBirthYear(request.getParameter("birthYear"));
 
             String month = String.format("%2s" , request.getParameter("birthMonth")).replace(" ", "0");
-            c.setBirthMonth(month);
+            customer.setBirthMonth(month);
 
             String day = String.format("%2s" , request.getParameter("birthDay")).replace(" ", "0");
-            c.setBirthDay(day);
+            customer.setBirthDay(day);
 
-            c.setFamily(request.getParameter("family"));
-            c.setIllness(request.getParameter("illness"));
-            c.setPurpose(request.getParameter("purpose"));
-            c.setIntroduce(request.getParameter("introduce"));
-            c.setContent(request.getParameter("content"));
+            customer.setFamily(request.getParameter("family"));
+            customer.setIllness(request.getParameter("illness"));
+            customer.setPurpose(request.getParameter("purpose"));
+            customer.setIntroduce(request.getParameter("introduce"));
+            customer.setContent(request.getParameter("content"));
 
             Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-            c.setCreated_at(currentTime);
-            c.setUpdated_at(currentTime);
+            customer.setCreated_at(currentTime);
+            customer.setUpdated_at(currentTime);
 
             CustomerValidator customerValidator = new CustomerValidator(this.getServletContext());
-            List<String> errors = customerValidator.validate(c);
+            List<String> errors = customerValidator.validate(customer);
             if(errors.size() > 0){
                 em.close();
 
                 request.setAttribute("_token", request.getSession().getId());
-                request.setAttribute("customer",c);
+                request.setAttribute("customer",customer);
                 request.setAttribute("errors",errors);
 
                 RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/customers/new.jsp");
@@ -83,7 +83,7 @@ public class CustomersCreate extends HttpServlet{
 
 
                 em.getTransaction().begin();
-                em.persist(c);
+                em.persist(customer);
                 em.getTransaction().commit();
                 em.close();
                 request.getSession().setAttribute("flush", "登録が完了しました。");
