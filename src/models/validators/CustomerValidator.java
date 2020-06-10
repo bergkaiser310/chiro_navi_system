@@ -38,23 +38,23 @@ public class CustomerValidator{
             }
 
             if(isEmpty(c.getBirthMonth())){
-                errors.add((String)context.getAttribute("Error0006"));
+                errors.add((String)context.getAttribute("Error0005"));
             }
 
             if(isEmpty(c.getBirthDay())){
-                errors.add((String)context.getAttribute("Error0007"));
+                errors.add((String)context.getAttribute("Error0005"));
             }
 
             if(isEmpty(c.getFamily())){
-                errors.add((String)context.getAttribute("Error0008"));
+                errors.add((String)context.getAttribute("Error0006"));
             }
 
             if(isEmpty(c.getIllness())){
-                errors.add((String)context.getAttribute("Error0009"));
+                errors.add((String)context.getAttribute("Error0007"));
              }
 
             if(isEmpty(c.getPurpose())){
-                errors.add((String)context.getAttribute("Error0010"));
+                errors.add((String)context.getAttribute("Error0008"));
              }
 
             return errors;
